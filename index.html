@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autos Alemanes</title>
+    <!-- Incluye Tailwind CSS para un estilizado rápido y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define la fuente Inter para todo el cuerpo del documento */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Permite el desplazamiento suave al hacer clic en los enlaces de navegación */
+        }
+        /* Estilo para la transición del modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Estilos básicos para el carrusel, aunque Tailwind maneja la mayoría */
+        .carousel-container {
+            position: relative;
+            overflow: hidden; /* Asegura que las imágenes fuera de vista no se muestren */
+            border-radius: 0.75rem; /* rounded-xl de Tailwind */
+        }
+        .carousel-image {
+            width: 100%;
+            display: block;
+            object-fit: cover; /* Para que las imágenes se ajusten bien */
+            transition: transform 0.3s ease-in-out; /* Transición para el zoom en hover */
+        }
+        /* Estilo para el botón flotante "Volver Arriba" */
+        #scrollToTopBtn {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Encabezado superior con colores de la bandera alemana y navegación -->
+    <header class="w-full bg-gradient-to-r from-black via-red-600 to-yellow-400 text-white p-4 shadow-lg flex items-center justify-between sticky top-0 z-20 rounded-b-xl">
+        <!-- Título principal "Autos Alemanes" en la esquina superior izquierda -->
+        <h1 class="text-4xl font-extrabold text-white drop-shadow-lg">Autos Alemanes</h1>
+        
+        <!-- Navegación -->
+        <nav>
+            <ul class="flex space-x-6">
+                <li>
+                    <a href="#bmw-section" class="block p-2 rounded-lg hover:bg-white hover:text-gray-900 transition duration-200 font-semibold">BMW</a>
+                </li>
+                <li>
+                    <a href="#porsche-section" class="block p-2 rounded-lg hover:bg-white hover:text-gray-900 transition duration-200 font-semibold">Porsche</a>
+                </li>
+                <li>
+                    <a href="#mercedes-benz-section" class="block p-2 rounded-lg hover:bg-white hover:text-gray-900 transition duration-200 font-semibold">Mercedes-Benz</a>
+                </li>
+                <li>
+                    <a href="#audi-section" class="block p-2 rounded-lg hover:bg-white hover:text-gray-900 transition duration-200 font-semibold">Audi</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="flex-grow p-4 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 overflow-y-auto">
+        <!-- Carrusel Principal -->
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-4xl mx-auto text-center mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Explora las Marcas Alemanas</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">
+                Haz clic en las imágenes para ir directamente a la sección de tu marca favorita.
+            </p>
+            <div id="main-carousel" class="carousel-container relative w-full overflow-hidden rounded-lg shadow-xl">
+                <img id="main-carouselImage" src="" alt="" class="carousel-image h-64 sm:h-80 md:h-[400px] object-cover cursor-pointer transform hover:scale-105 transition duration-200">
+                <button id="main-carouselPrevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&lt;</button>
+                <button id="main-carouselNextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&gt;</button>
+                <div id="main-carouselDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                    <!-- Los puntos se generarán dinámicamente con JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Secciones de las marcas -->
+        
+        <!-- Sección BMW -->
+        <section id="bmw-section" class="bg-white p-8 rounded-xl shadow-2xl max-w-4xl mx-auto mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">BMW</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Historia</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Bayerische Motoren Werke AG, más conocida como BMW, fue fundada en 1916. Inicialmente, la empresa se dedicaba a la fabricación de motores de aviones, pero después de la Primera Guerra Mundial, cambió su enfoque a las motocicletas y luego a los automóviles. BMW es reconocida por su énfasis en la deportividad, la dinámica de conducción y la innovación tecnológica.
+                </p>
+                <!-- Logos de BMW a lo largo del tiempo -->
+                <div class="mt-4 flex flex-wrap justify-center items-center gap-6">
+                    <img src="https://placehold.co/100x100/343a40/ffffff?text=BMW+1916" alt="Logo de BMW 1916 (Primer Logo)" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/495057/ffffff?text=BMW+1930s" alt="Logo de BMW de los años 30" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/6c757d/ffffff?text=BMW+1960s" alt="Logo de BMW de los años 60" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/333333/ffffff?text=BMW+Actual" alt="Logo actual de BMW" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Icónicos BMW -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Icónicos</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Una selección de los vehículos que han definido la esencia y la legendaria trayectoria de BMW, desde sedanes deportivos hasta su evolución en el lujo y la electrificación.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://cdn.motor1.com/images/mgl/G3yeBV/s1/bmw-m3-e30-statica.jpg" alt="BMW E30 M3" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://espirituracer.com/archivos/2021/07/bmw-528i-e28-1.webp" alt="BMW 528" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.norclassics.com/wp-content/uploads/2024/09/1.jpg" alt="BMW 635" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Concept BMW -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Concept</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Vistazos al futuro y a la innovación, estos vehículos conceptuales demuestran la visión de BMW en diseño y tecnología automotriz.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlDU7XIO9a-v4Xte9jn1MNvozQ7-pj_9CEQw&s" alt="BMW Vision iNext Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7GhL6JdTELErOcye_l_H4TLsTfE9S-un1lg&s" alt="BMW GINA Light Visionary Model" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://espirituracer.com/archivos/2019/06/bmw-vision-m-next-concept-25-e1561518177849.jpg" alt="BMW Vision M Next Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Galería</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Explora algunos de los modelos más actuales de BMW a través de este carrusel interactivo.
+                </p>
+                <!-- Carrusel de imágenes BMW -->
+                <div id="bmw-gallery" class="carousel-container relative w-full overflow-hidden rounded-lg shadow-xl">
+                    <img id="bmw-galleryImage" src="" alt="" class="carousel-image h-64 sm:h-80 md:h-96 object-cover cursor-pointer transform hover:scale-105 transition duration-200">
+                    <button id="bmw-galleryPrevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&lt;</button>
+                    <button id="bmw-galleryNextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&gt;</button>
+                    <div id="bmw-galleryDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                        <!-- Los puntos se generarán dinámicamente con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Porsche -->
+        <section id="porsche-section" class="bg-white p-8 rounded-xl shadow-2xl max-w-4xl mx-auto mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Porsche</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Historia</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Dr. Ing. h.c. F. Porsche AG, comúnmente conocida como Porsche, fue fundada en 1931 por Ferdinand Porsche. Es famosa por sus autos deportivos de alto rendimiento, especialmente el icónico Porsche 911. La marca es sinónimo de ingeniería de precisión, diseño atemporal y éxitos en el automovilismo.
+                </p>
+                <!-- Logos de Porsche a lo largo del tiempo -->
+                <div class="mt-4 flex flex-wrap justify-center items-center gap-6">
+                    <img src="https://placehold.co/100x100/525252/ffffff?text=Porsche+1931" alt="Logo de Porsche 1931 (Primer Logo)" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/737373/ffffff?text=Porsche+1952" alt="Logo de Porsche 1952" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/a3a3a3/ffffff?text=Porsche+Actual" alt="Logo actual de Porsche" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Icónicos Porsche -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Icónicos</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Una selección de los vehículos que han definido la esencia y la legendaria trayectoria de Porsche, desde sus clásicos deportivos hasta los modelos modernos.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://images-porsche.imgix.net/-/media/00B9B131060041F3B06E5713C7FF04B5_50A6D9603C7A474CA72F4372B5357483_020_info-slider_a_1600_super-speedster_1956-58?w=1299&q=85&auto=format" alt="Porsche 356" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.classicandsportscar.com/sites/default/files/styles/slideshow_slide/public/cloned-files/Classic-%26-Sports-Car-Steve-McQueen-Le-Mans-Porsche-917-00_61.jpg?itok=AI0AGGd3" alt="Porsche 917 Le Mans" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.automoli.com/common/vehicles/_assets/img/gallery/f106/porsche-carrera-gt.jpg" alt="Porsche Carrera GT" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Concept Porsche -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Concept</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Vistazos al futuro y a la innovación, estos vehículos conceptuales demuestran la visión de Porsche en diseño y tecnología automotriz.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Porsche_Mission_E.jpg/1200px-Porsche_Mission_E.jpg" alt="Porsche Mission E Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.carsmagazine.com.ar/wp-content/uploads/2012/05/porsche-918-spyder-1.jpg" alt="Porsche 918 Spyder Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://mediaassets.pca.org/pages/pca/images/content/vision-gt-at-pecla(1).jpg" alt="Porsche Vision Gran Turismo" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Galería</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Un espacio para explorar la sofisticación de los Porsche, desde sus elegantes coupés hasta sus potentes SUV.
+                </p>
+                <!-- Carrusel de imágenes Porsche -->
+                <div id="porsche-gallery" class="carousel-container relative w-full overflow-hidden rounded-lg shadow-xl">
+                    <img id="porsche-galleryImage" src="" alt="" class="carousel-image h-64 sm:h-80 md:h-96 object-cover cursor-pointer transform hover:scale-105 transition duration-200">
+                    <button id="porsche-galleryPrevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&lt;</button>
+                    <button id="porsche-galleryNextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&gt;</button>
+                    <div id="porsche-galleryDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                        <!-- Los puntos se generarán dinámicamente con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Mercedes-Benz -->
+        <section id="mercedes-benz-section" class="bg-white p-8 rounded-xl shadow-2xl max-w-4xl mx-auto mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Mercedes-Benz</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Historia</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Mercedes-Benz tiene sus raíces en la invención del automóvil por Karl Benz en 1886. La marca, que forma parte de Daimler AG, es mundialmente reconocida por sus vehículos de lujo, autobuses, autocares y camiones. Se asocia con la elegancia, la seguridad, la innovación y el prestigio.
+                </p>
+                <!-- Logos de Mercedes-Benz a lo largo del tiempo -->
+                <div class="mt-4 flex flex-wrap justify-center items-center gap-6">
+                    <img src="https://placehold.co/100x100/364156/ffffff?text=Merc+1902" alt="Logo de Mercedes-Benz 1902" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/5a677b/ffffff?text=Merc+1926" alt="Logo de Mercedes-Benz 1926" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/7a879e/ffffff?text=Merc+Actual" alt="Logo actual de Mercedes-Benz" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Icónicos Mercedes-Benz -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Icónicos</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Una selección de los vehículos que han definido la esencia y la legendaria trayectoria de Mercedes-Benz, sinónimo de lujo y seguridad.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://www.amalgamcollection.com/cdn/shop/products/Merc_Hero.jpg?v=1601654414" alt="Mercedes-Benz 300SL Gullwing" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://cdn.motor1.com/images/mgl/qklm2z/s1/hof-mercedes-amg-g63-sir-class.webp" alt="Mercedes-Benz G-Class" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.autonocion.com/wp-content/uploads/2020/10/Mercedes-E500-W124-15.jpg" alt="Mercedes-Benz W124 E-Class" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Concept Mercedes-Benz -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Concept</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Vistazos al futuro y a la innovación, estos vehículos conceptuales demuestran la visión de Mercedes-Benz en diseño y tecnología automotriz.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://img.remediosdigitales.com/b643ae/22c0001_063/1366_2000.jpeg" alt="Mercedes-Benz Vision EQXX" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://preview.free3d.com/img/2023/03/3190269325890028733/9v7dfwd1.jpg" alt="Mercedes-Benz Vision AVTR" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://150954136.v2.pressablecdn.com/wp-content/uploads/2019/09/LuxuryToys-Mercedes-Benz-AMG-Vision-GT-Article03.jpg" alt="Mercedes-AMG Vision GT Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Galería</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Un espacio para explorar la sofisticación de los Mercedes-Benz, desde sus elegantes sedanes hasta sus potentes AMG.
+                </p>
+                <!-- Carrusel de imágenes Mercedes-Benz -->
+                <div id="mercedes-benz-gallery" class="carousel-container relative w-full overflow-hidden rounded-lg shadow-xl">
+                    <img id="mercedes-benz-galleryImage" src="" alt="" class="carousel-image h-64 sm:h-80 md:h-96 object-cover cursor-pointer transform hover:scale-105 transition duration-200">
+                    <button id="mercedes-benz-galleryPrevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&lt;</button>
+                    <button id="mercedes-benz-galleryNextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&gt;</button>
+                    <div id="mercedes-benz-galleryDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                        <!-- Los puntos se generarán dinámicamente con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Audi -->
+        <section id="audi-section" class="bg-white p-8 rounded-xl shadow-2xl max-w-4xl mx-auto mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">Audi</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Historia</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Audi, parte del Grupo Volkswagen, tiene una historia compleja que se remonta a principios del siglo XX con August Horch. La marca actual fue formada en 1969. Audi es conocida por su lema "A la Vanguardia de la Técnica", su tracción integral quattro y su diseño progresivo y minimalista.
+                </p>
+                <!-- Logos de Audi a lo largo del tiempo -->
+                <div class="mt-4 flex flex-wrap justify-center items-center gap-6">
+                    <img src="https://placehold.co/100x100/4c4d4d/ffffff?text=Audi+1909" alt="Logo de Audi 1909 (Primer Logo)" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/6b6b6b/ffffff?text=Audi+1932" alt="Logo de Audi 1932 (Auto Union)" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <span class="text-gray-500 text-lg">&rarr;</span>
+                    <img src="https://placehold.co/100x100/949494/ffffff?text=Audi+Actual" alt="Logo actual de Audi" class="rounded-full shadow-md cursor-pointer transform hover:scale-110 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Icónicos Audi -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Icónicos</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Una selección de los vehículos que han definido la esencia y la legendaria trayectoria de Audi, reconocidos por su diseño y tecnología.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://cdn.rmsothebys.com/c/e/3/b/9/3/ce3b933051234fd39663c7bbcf64785d8ac49154.webp" alt="Audi Quattro Rally" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://i0.wp.com/tiempomotor.com/wp-content/uploads/2022/10/Audi_R8_GT_V10_1.jpg?resize=1170%2C610&ssl=1" alt="Audi R8 V10" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://www.carandclassic.com/magazine/app/uploads/2023/01/xlrYJTrslMDsjqZAIF8uYBSwtzjZtIUKGOSEtxml-scaled.jpg" alt="Audi Sport Quattro" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <!-- Modelos Concept Audi -->
+            <div class="mt-8 mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Modelos Concept</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Vistazos al futuro y a la innovación, estos vehículos conceptuales demuestran la visión de Audi en diseño y tecnología automotriz.
+                </p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://soymotor.com/sites/default/files/imagenes/noticia/audi_ai-me_concept_1.jpg" alt="Audi AI:ME Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://hips.hearstapps.com/hmg-prod/images/2025-audi-e-tron-gt-102-66743d083580e.jpg?crop=0.646xw:0.546xh;0.112xw,0.248xh&resize=2048:*" alt="Audi e-tron GT Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                    <img src="https://fuelcarmagazine.com/wp-content/uploads/2021/08/%C2%A9-Audi.jpg" alt="Audi Skysphere Concept" class="rounded-lg shadow-md w-full h-auto cursor-pointer transform hover:scale-105 transition duration-200" onclick="openModal(this.src, this.alt)">
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Galería</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Aquí se destacarán los elegantes diseños de Audi, desde la serie A hasta sus deportivos R y S.
+                </p>
+                <!-- Carrusel de imágenes Audi -->
+                <div id="audi-gallery" class="carousel-container relative w-full overflow-hidden rounded-lg shadow-xl">
+                    <img id="audi-galleryImage" src="" alt="" class="carousel-image h-64 sm:h-80 md:h-96 object-cover cursor-pointer transform hover:scale-105 transition duration-200">
+                    <button id="audi-galleryPrevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&lt;</button>
+                    <button id="audi-galleryNextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full mx-2 opacity-75 hover:opacity-100 transition-opacity z-10 text-xl font-bold">&gt;</button>
+                    <div id="audi-galleryDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                        <!-- Los puntos se generarán dinámicamente con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal para mostrar la imagen en grande -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden opacity-0" onclick="closeModal()">
+        <div class="relative max-w-4xl max-h-full mx-auto p-4" onclick="event.stopPropagation()">
+            <img id="modalImage" src="" alt="Imagen en grande" class="max-w-full max-h-[80vh] rounded-lg shadow-xl object-contain">
+            <button class="absolute top-4 right-4 text-white text-4xl font-bold bg-gray-800 rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-700 transition duration-200" onclick="closeModal()">
+                &times;
+            </button>
+            <div id="modalCaption" class="text-white text-lg mt-4 text-center"></div>
+        </div>
+    </div>
+
+    <!-- Botón flotante "Volver Arriba" -->
+    <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg opacity-0 transform translate-y-4 cursor-pointer z-40" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        // Datos para el carrusel principal
+        const mainCarouselImages = [
+            { src: "https://images.unsplash.com/photo-1614621316840-f9f93e671d61?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "BMW - La Experiencia de Conducción Definitiva", targetId: "bmw-section" },
+            { src: "https://images.unsplash.com/photo-1634673970798-a15ae56f6c65?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Porsche - Ingeniería y Pasión Deportiva", targetId: "porsche-section" },
+            { src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Mercedes-Benz - Lujo, Elegancia e Innovación", targetId: "mercedes-benz-section" },
+            { src: "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Audi - Vanguardia de la Técnica", targetId: "audi-section" }
+        ];
+
+        // Datos de las imágenes para cada carrusel de galería
+        const galleryCarouselsData = {
+            'bmw-gallery': [
+                { src: "https://images.unsplash.com/photo-1748352008073-b3a75ac3d5a6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "BMW Serie 3 Deportivo" },
+                { src: "https://images.unsplash.com/photo-1642189673400-2c5f1253af27?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "BMW iX Eléctrico" },
+                { src: "https://images.unsplash.com/photo-1607500422359-a8831901753b?q=80&w=1534&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "BMW M4 de Alto Rendimiento" }
+            ],
+            'porsche-gallery': [
+                { src: "https://fotos.perfil.com/2019/05/02/trim/876/492/oficial-la-nueva-generacion-del-porsche-911-llegara-a-la-argentina-en-junio-684748.jpg", alt: "Porsche 911 Carrera Icónico" },
+                { src: "https://upload.wikimedia.org/wikipedia/commons/d/dc/2020_Porsche_Taycan_4S_79kWh_Front.jpg", alt: "Porsche Taycan Eléctrico" },
+                { src: "https://www.thecarexpert.co.uk/wp-content/uploads/2021/06/Porsche-Cayenne-S-2023-wallpaper-1920x960.jpeg.webp", alt: "Porsche Cayenne SUV" }
+            ],
+            'mercedes-benz-gallery': [
+                { src: "https://www.mercedes-benz.com.ar/content/dam/hq/passengercars/cars/s-class/s-class-saloon-wv223-pi/overview/exterior/09-2022/images/mercedes-benz-s-class-wv223-exterior-hotspot-3302x1858-09-2022.jpg/1740015980299.jpg?im=Crop,rect=(0,0,3302,1857);Resize=(1850,1040)", alt: "Mercedes-Benz Clase S Lujo" },
+                { src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Festival_automobile_international_2015_-_Mercedes_AMG_GT_-_003.jpg", alt: "Mercedes-AMG GT Deportivo" },
+                { src: "https://cdn.motor1.com/images/mgl/bgBPO3/s1/2025-mercedes-eqs.webp", alt: "Mercedes-Benz EQS Eléctrico" }
+            ],
+            'audi-gallery': [
+                { src: "https://cdn-xy.drivek.com/eyJidWNrZXQiOiJkYXRhay1jZG4teHkiLCJrZXkiOiJjb25maWd1cmF0b3ItaW1ncy9jYXJzL2VzL29yaWdpbmFsL0FVREkvQTctU1BPUlRCQUNLLzQ4NzY1X0hBVENIQkFDSy01LURPT1JTL2F1ZGktYTctc3BvcnRiYWNrLWZyb250LXZpZXcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMDI0LCJoZWlnaHQiOm51bGwsImZpdCI6ImNvdmVyIn19fQ==", alt: "Audi A7 Sportback Elegante" },
+                { src: "https://cdn.motor1.com/images/mgl/owWrq/s1/lanzamiento-audi-r8-coupe-v10-plus.webp", alt: "Audi R8 Superdeportivo" },
+                { src: "https://hips.hearstapps.com/hmg-prod/images/2025-audi-e-tron-gt-102-66743d083580e.jpg?crop=0.646xw:0.546xh;0.112xw,0.248xh&resize=2048:*", alt: "Audi e-tron GT Eléctrico" }
+            ]
+        };
+
+        // Función para abrir el modal con la imagen seleccionada
+        function openModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+
+            modalImage.src = src;
+            modalImage.alt = alt;
+            modalCaption.textContent = alt; // Muestra el texto alternativo como título
+            
+            modal.classList.remove('hidden'); // Hace visible el modal
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100'); // Añade la opacidad para la transición
+            }, 10); // Un pequeño retardo para asegurar la transición
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0'); // Elimina la opacidad para la transición
+            setTimeout(() => {
+                modal.classList.add('hidden'); // Oculta el modal después de la transición
+            }, 300); // Coincide con la duración de la transición CSS
+        }
+
+        /**
+         * Inicializa un carrusel.
+         * @param {string} carouselId El ID del contenedor del carrusel.
+         * @param {Array<Object>} images Array de objetos de imagen ({ src, alt, targetId? }).
+         * @param {function} [imageClickHandler] Función a llamar cuando se hace clic en una imagen.
+         * Por defecto, abre el modal. Si se proporciona, la usa.
+         */
+        function initCarousel(carouselId, images, imageClickHandler = null) {
+            let currentIndex = 0;
+            const carouselImage = document.getElementById(`${carouselId}Image`);
+            const prevBtn = document.getElementById(`${carouselId}PrevBtn`);
+            const nextBtn = document.getElementById(`${carouselId}NextBtn`);
+            const dotsContainer = document.getElementById(`${carouselId}Dots`);
+
+            // Muestra la imagen actual y actualiza los puntos
+            const showImage = (index) => {
+                carouselImage.src = images[index].src;
+                carouselImage.alt = images[index].alt;
+
+                // Asigna el controlador de clic basado en el parámetro
+                if (imageClickHandler) {
+                    carouselImage.onclick = () => imageClickHandler(images[index]);
+                } else {
+                    // Comportamiento por defecto: abrir modal
+                    carouselImage.onclick = () => openModal(images[index].src, images[index].alt);
+                }
+                updateDots(index);
+            };
+
+            // Pasa a la siguiente imagen
+            const nextImage = () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            };
+
+            // Vuelve a la imagen anterior
+            const prevImage = () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            };
+
+            // Actualiza los puntos de navegación (indicadores de imagen)
+            const updateDots = (activeIndex) => {
+                dotsContainer.innerHTML = ''; // Limpia los puntos existentes
+                images.forEach((_, idx) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('w-3', 'h-3', 'rounded-full', 'cursor-pointer', 'transition-all', 'duration-200');
+                    if (idx === activeIndex) {
+                        dot.classList.add('bg-white', 'bg-opacity-100'); // Punto activo
+                        dot.classList.remove('bg-gray-400', 'bg-opacity-50');
+                    } else {
+                        dot.classList.add('bg-gray-400', 'bg-opacity-50'); // Punto inactivo
+                        dot.classList.remove('bg-white', 'bg-opacity-100');
+                    }
+                    dot.onclick = () => {
+                        currentIndex = idx;
+                        showImage(currentIndex);
+                    };
+                    dotsContainer.appendChild(dot);
+                });
+            };
+
+            // Asigna los eventos a los botones de navegación
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+
+            // Muestra la primera imagen al inicializar
+            showImage(currentIndex);
+        }
+
+        // Función de controlador de clic para el carrusel principal (desplazamiento)
+        function handleMainCarouselClick(imageObj) {
+            const targetElement = document.getElementById(imageObj.targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Inicializa todos los carruseles cuando la ventana ha cargado completamente
+        window.onload = function() {
+            // Inicializar el carrusel principal
+            initCarousel('main-carousel', mainCarouselImages, handleMainCarouselClick);
+
+            // Inicializar los carruseles de galería
+            for (const id in galleryCarouselsData) {
+                initCarousel(id, galleryCarouselsData[id]); // Sin imageClickHandler, usa el comportamiento por defecto (modal)
+            }
+        };
+
+        // Lógica para el botón "Volver Arriba"
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.onscroll = function() {
+            // Muestra el botón cuando el usuario se desplaza 200px hacia abajo
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4');
+                scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                scrollToTopBtn.classList.add('opacity-0', 'translate-y-4');
+            }
+        };
+    </script>
+
+    <!-- Pie de página -->
+    <footer class="w-full bg-gray-900 text-gray-300 p-6 text-center shadow-inner mt-8 rounded-t-xl">
+        <p>&copy; OM1972 - 2025 Autos Alemanes. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Hecho con pasión por la ingeniería alemana.</p>
+        <div class="flex justify-center space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white transition duration-200">Privacidad</a>
+            <span class="text-gray-600">|</span>
+            <a href="#" class="text-gray-400 hover:text-white transition duration-200">Términos</a>
+            <span class="text-gray-600">|</span>
+            <a href="#" class="text-gray-400 hover:text-white transition duration-200">Contacto</a>
+        </div>
+    </footer>
+</body>
+</html>
+
